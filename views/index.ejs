@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>my crypto</title>
+    <link rel="stylesheet" href="../public/css/output.css" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link
+      href="//db.onlinewebfonts.com/c/f21923cb0f60b46d41a66875255790b3?family=NHaasGroteskDSPro-65Md"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <style>
+      .slider2 .slick-list .slick-slide {
+        margin: 0 20px;
+      }
+    </style>
+    <!-- slick slider -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
+      integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
+      integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body style="font-family: 'Neue Haas Grotesk Display Pro 65 Medium'" class="">
+    <nav class="flex py-3 px-[5%] justify-between bg-cyan-500 items-center">
+      <form
+        method="post"
+        action=""
+        onchange="this.submit() "
+        class="p-2 flex gap-4"
+      >
+        <select
+          name="selectCoin"
+          class="md:px-10 px-2 bg-black py-1 text-white"
+        >
+          <option value="avalanche-2">Avalanche (AVAX)</option>
+          <option value="binancecoin">Binance (BNB)</option>
+          <option value="bitcoin">Bitcoin (BTC)</option>
+          <option value="cardano">Cardano (ADA)</option>
+          <option value="decentraland">Decentraland (MANA)</option>
+          <option value="dogecoin">Dogecoin (DOGE)</option>
+          <option value="ethereum">Ethereum (ETH)</option>
+          <option value="ripple">Ripple (XRP)</option>
+          <option value="solana">Solana (SOL)</option>
+          <option value="tether">Tether (USDT)</option>
+          <option value="polkadot">Polkadot (DOT)</option>
+          <option value="chainlink">Chainlink (LINK)</option>
+          <option value="litecoin">Litecoin (LTC)</option>
+          <!-- Add more options -->
+          <option value="tezos">Tezos (XTZ)</option>
+          <option value="matic-network">Polygon (MATIC)</option>
+          <option value="binance-usd">Binance USD (BUSD)</option>
+          <option value="uniswap">Uniswap (UNI)</option>
+          <option value="stellar">Stellar (XLM)</option>
+        </select>
+        <input
+          name="inputCoin"
+          type="text"
+          class="md:px-6 py-2 bg-black outline-none text-white placeholder:text-white"
+          placeholder="🔍 search coin.."
+        />
+        <button
+          type="submit"
+          class="px-4 bg-gradient-to-tr from-pink-500 to-purple-600 text-white"
+        >
+          Search
+        </button>
+      </form>
+
+      <h1 class="text-3xl text-white font-bold">MY CRYPTO</h1>
+    </nav>
+    <main
+      style="
+        background-image: linear-gradient(rgb(0, 0, 0, 0.5), rgb(0, 0, 0, 0.5)),
+          url('https://wallpaperaccess.com/full/2095724.png');
+      "
+      class="hero bg-center bg-cover h-full text-black dark:text-white"
+    >
+      <div class="px-[5%]">
+        <div class="coin-info py-4">
+          <span class="text-4xl capitalize my-2 font-bold flex">
+            <img
+              src="<%- allCoin.image.small %>"
+              alt="Coin Image"
+              class="w-10 h-10 mr-2"
+            />
+
+            <%= allCoin.id %>
+          </span>
+        </div>
+        <div class="flex gap-10 justify-between slider2">
+          <div class="bg-black p-4 text-center min-w-[175px] rounded-md">
+            <p class="text-xs">Market Cap 24Hrs</p>
+
+            <p class="mt-1 text-cyan-400">
+              <%-allCoin.market_data.market_cap_change_percentage_24h%> %
+            </p>
+          </div>
+
+          <div class="bg-black p-4 text-center min-w-[175px] rounded-md">
+            <p class="text-xs">All time High</p>
+            <p class="mt-1 text-cyan-400">
+              $<%-allCoin.market_data.ath["usd"]%>
+            </p>
+          </div>
+
+          <div class="bg-black p-4 text-center min-w-[175px] rounded-md">
+            <p class="text-xs">All time low</p>
+            <p class="mt-1 text-cyan-400">
+              $<%-allCoin.market_data.atl["usd"]%>
+            </p>
+          </div>
+
+          <div class="bg-black p-4 text-center min-w-[175px] rounded-md">
+            <p class="text-xs">Positive sentiMent</p>
+            <p class="mt-1 text-cyan-400">
+              <%- allCoin.sentiment_votes_up_percentage %> %
+            </p>
+          </div>
+
+          <div class="bg-black p-4 text-center min-w-[175px] rounded-md">
+            <p class="text-xs">High 24Hrs</p>
+            <p class="mt-1 text-green-400">
+              $<%- allCoin.market_data.high_24h["usd"] %>
+            </p>
+          </div>
+
+          <div class="bg-black p-4 text-center min-w-[175px] rounded-md">
+            <p class="text-xs">Low 24Hrs</p>
+            <p class="mt-1 text-red-500">
+              $<%- allCoin.market_data.low_24h["usd"] %>
+            </p>
+          </div>
+        </div>
+
+        <div class="text-center my-4">
+          <p class="text-lg">Current Price</p>
+          <p class="text-cyan-400 text-6xl font-black">
+            $<%- allCoin.market_data.current_price.usd %>
+            <span
+              id="refresh-icon"
+              style="cursor: pointer"
+              class="text-yellow-300 text-2xl"
+              >&#x21bb;</span
+            >
+          </p>
+        </div>
+
+        <div
+          class="flex md:flex-row flex-col justify-between grow gap-3 pb-5 w-full"
+        >
+          <div id="chart" class="w-full md:w-7/12 flex-1"></div>
+
+          <div
+            class="flex md:flex-col gap-2 bg-transparent flex-none justify-evenly flex-wrap"
+          >
+            <div class="p-3 text-center min-w-[150px] rounded-md">
+              <p class="text-xs">Market Cap</p>
+              <p class="mt-1 white">
+                $<%- allCoin.market_data.market_cap["usd"] %>
+              </p>
+            </div>
+            <div class="p-3 text-center min-w-[175px] rounded-md">
+              <p class="text-xs">Total Volume</p>
+              <p class="mt-1 white">
+                $<%- allCoin.market_data.total_volume["usd"] %>
+              </p>
+            </div>
+
+            <div class="p-3 text-center min-w-[175px] rounded-md">
+              <p class="text-xs">Price change 24Hrs</p>
+              <p class="mt-1 white">
+                <%- allCoin.market_data.price_change_percentage_24h.toFixed(2)
+                %> %
+              </p>
+            </div>
+
+            <div class="p-3 text-center min-w-[175px] rounded-md">
+              <p class="text-xs">Circulating Supply</p>
+              <p class="mt-1 white">
+                $<%- allCoin.market_data.circulating_supply %>
+              </p>
+            </div>
+            <div class="p-3 text-center min-w-[175px] rounded-md">
+              <p class="text-xs">Twitter Followers</p>
+              <p class="mt-1 white">
+                $<%- allCoin.community_data.twitter_followers %>
+              </p>
+            </div>
+          </div>
+          <div class="flex flex-col md:w-[25%] shrink-2 gap-10">
+            <div id="marketCap"></div>
+
+            <div id="marketVol"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      let mData = `<%- JSON.stringify(marketChart.prices) %>`;
+      mData = String(mData);
+      mData = JSON.parse(mData);
+      mData.forEach((dataPoint) => {
+        dataPoint[0] = new Date(dataPoint[0]).toLocaleString();
+        console.log(dataPoint[0]);
+      });
+
+      var options = {
+        series: [
+          {
+            data: mData,
+          },
+        ],
+
+        chart: {
+          type: "area",
+          stacked: false,
+          height: 350,
+          zoom: {
+            type: "x",
+            enabled: true,
+            autoScaleYaxis: true,
+          },
+          toolbar: {
+            autoSelected: "zoom",
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        markers: {
+          size: 0,
+        },
+        title: {
+          text: "Stock Price Movement",
+          align: "left",
+          style: {
+            fontSize: "14px",
+            fontWeight: "bold",
+            color: "#22D3EE",
+          },
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            shadeIntensity: 1,
+            inverseColors: false,
+            opacityFrom: 0.5,
+            opacityTo: 0,
+            stops: [0, 90, 100],
+          },
+        },
+        yaxis: {
+          labels: {
+            formatter: (value) => value.toFixed(2),
+          },
+          title: {
+            text: "Price",
+          },
+        },
+        xaxis: {
+          type: "datetime",
+        },
+        tooltip: {
+          shared: false,
+          y: {
+            formatter: (value) => value.toFixed(2),
+          },
+          theme: "dark",
+        },
+      };
+
+      var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+      chart.render();
+    </script>
+
+    <script>
+      let mDataCap = `<%- JSON.stringify(marketChart.market_caps) %>`;
+      mDataCap = String(mDataCap);
+      mDataCap = JSON.parse(mDataCap);
+      var options = {
+        series: [
+          {
+            name: "market cap",
+            data: mDataCap,
+          },
+        ],
+        grid: {
+          show: false,
+        },
+
+        chart: {
+          type: "line",
+          stacked: false,
+          height: 150,
+          zoom: {
+            type: "x",
+            enabled: true,
+            autoScaleYaxis: true,
+          },
+
+          toolbar: {
+            autoSelected: "zoom",
+          },
+        },
+        tooltip: {
+          shared: false,
+          y: {
+            formatter: (value) => value,
+          },
+          theme: "dark",
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        markers: {
+          size: 0,
+        },
+        title: {
+          text: "Market Cap (USD)",
+          style: {
+            fontSize: "14px",
+            fontWeight: "bold",
+            color: "#ff69f5",
+          },
+        },
+        yaxis: [
+          {
+            show: false,
+          },
+        ],
+
+        xaxis: {
+          type: "datetime",
+        },
+        colors: ["#D875C7"],
+      };
+
+      var chart1 = new ApexCharts(
+        document.querySelector("#marketCap"),
+        options
+      );
+      chart1.render();
+    </script>
+
+    <script>
+      let mDataVol = `<%- JSON.stringify(marketChart.total_volumes) %>`;
+      mDataVol = String(mDataVol);
+      mDataVol = JSON.parse(mDataVol);
+
+      var options = {
+        chart: {
+          type: "line",
+          height: 150,
+          background: "transparent",
+        },
+        theme: {
+          mode: "dark",
+        },
+        grid: {
+          show: false,
+        },
+        title: {
+          text: "Market Volume",
+          style: {
+            fontSize: "14px",
+            fontWeight: "bold",
+            color: "#ffff00",
+          },
+        },
+        series: [
+          {
+            name: "Market Volume",
+            data: mDataVol, // Corrected variable name
+          },
+        ],
+        xaxis: {
+          type: "datetime",
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        yaxis: [
+          {
+            show: false,
+          },
+        ],
+        colors: ["#ffff00"],
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return val;
+            },
+          },
+        },
+      };
+
+      var chart2 = new ApexCharts(
+        document.querySelector("#marketVol"),
+        options
+      );
+      chart2.render();
+    </script>
+
+    <script
+      type="text/javascript"
+      src="//code.jquery.com/jquery-1.11.0.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="//code.jquery.com/jquery-migrate-1.2.1.min.js"
+    ></script>
+
+    <script
+      type="text/javascript"
+      src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+
+    <script>
+      $(document).ready(function () {
+        $(".slider2").slick({
+          dots: false,
+          infinite: true,
+          speed: 300,
+          slidesToShow: 5,
+          slidesToScroll: 4,
+          autoplay: true, // Enable autoplay
+          autoplaySpeed: 2000, // Set autoplay speed in milliseconds
+
+          // Hide next and previous arrows
+          nextArrow: false,
+          prevArrow: false,
+          responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 4,
+                slidesToScroll: 3,
+                infinite: true,
+                dots: false,
+              },
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+              },
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+              },
+            },
+          ],
+        });
+      });
+    </script>
+
+    <script>
+      document
+        .getElementById("refresh-icon")
+        .addEventListener("click", function () {
+          location.reload();
+        });
+    </script>
+  </body>
+</html>
