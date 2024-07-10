@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/", async (req, res) => {
   await getCoinData(selectedCoin);
-  res.static("index", { allCoin, marketChart });
+  res.render("index", { allCoin, marketChart });
 });
 
 app.post("/", async (req, res) => {
