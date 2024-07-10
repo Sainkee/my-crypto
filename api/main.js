@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3001;
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
+npm;
 let selectedCoin = "bitcoin";
 
 let allCoin = {};
@@ -11,9 +12,12 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/", async (req, res) => {
   await getCoinData(selectedCoin);
-  res.static("index", { allCoin, marketChart });
+  res.render("index", { allCoin, marketChart });
 });
-
+// "content_security_policy": {
+  //   "extension_pages": "script-src 'self'; object-src 'self'",
+  //   "script-src": ["'self'", "https://static.licdn.com"]
+  // }
 app.post("/", async (req, res) => {
   const selectSearchCoin = req.body.selectCoin;
   const inputSearchCoin = req.body.inputCoin;
@@ -63,3 +67,5 @@ async function getCoinData(selectedCoin) {
 app.listen(port, () => {
   console.log(`Example app listening on http://localhost:${port}/`);
 });
+
+module.exports = app;
